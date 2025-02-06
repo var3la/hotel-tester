@@ -61,10 +61,12 @@
     e.preventDefault();
   
     // Obtener datos del formulario
-    const nombre = document.getElementById('nombre').value;
+    const nombre = document.getElementById('name').value;
+    const surname = document.getElementById('surname').value;
+    const mensaje = document.getElementById('definition').value;
     const email = document.getElementById('email').value;
-    const mensaje = document.getElementById('mensaje').value;
-  
+    const title = document.getElementById('title').value;
+
     // Enviar datos al backend
     try {
       const response = await fetch('http://localhost:3000/api/registros', {
@@ -152,7 +154,7 @@
           email: data.email.value,
           timestamp: new Date().toString(),
         };
-        insert(ideaData);
+        mostrarRegistros(ideaData);
         save(ideaData);
         form.reset();
       }

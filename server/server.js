@@ -6,7 +6,24 @@ const fs = require('fs-extra');
 // Inicializar Express
 const app = express();
 const PORT = 3000;
+//busca un puerto libre en caso de que el 3000 este ocupado
+// function startServer() {
+//   const server = app.listen(PORT, () => {
+//     console.log(`Servidor escuchando en http://localhost:${PORT}`);
+//   });
 
+//   server.on('error', (err) => {
+//     if (err.code === 'EADDRINUSE') {
+//       console.log(`El puerto ${PORT} está en uso. Intentando con el siguiente puerto...`);
+//       PORT += 1; // Incrementa el puerto
+//       startServer(); // Vuelve a intentar
+//     } else {
+//       console.error('Error al iniciar el servidor:', err);
+//     }
+//   });
+// }
+
+// startServer();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
