@@ -1,0 +1,10 @@
+{
+  "data": [
+    {
+        "id": "1698754321000",
+        "nombre": "Juan",
+        "email": "juan@example.com",
+        "mensaje": "Hola, esto es un mensaje de prueba."
+    }
+  ]
+}
