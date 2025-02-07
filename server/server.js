@@ -6,24 +6,7 @@ const fs = require('fs-extra');
 // Inicializar Express
 const app = express();
 const PORT = 3000;
-//busca un puerto libre en caso de que el 3000 este ocupado
-// function startServer() {
-//   const server = app.listen(PORT, () => {
-//     console.log(`Servidor escuchando en http://localhost:${PORT}`);
-//   });
 
-//   server.on('error', (err) => {
-//     if (err.code === 'EADDRINUSE') {
-//       console.log(`El puerto ${PORT} está en uso. Intentando con el siguiente puerto...`);
-//       PORT += 1; // Incrementa el puerto
-//       startServer(); // Vuelve a intentar
-//     } else {
-//       console.error('Error al iniciar el servidor:', err);
-//     }
-//   });
-// }
-
-// startServer();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -50,28 +33,39 @@ async function guardarDatos(datos) {
   }
 }
 
-// Rutas
-
 // Crear un nuevo registro
 app.post('/api/registros', async (req, res) => {
   try {
-    const { nombre, email, mensaje } = req.body;
+    const { title, definition, name, surname, email } = req.body;
 
-    if (!nombre || !email || !mensaje) {
+    // Validar que todos los campos requeridos estén presentes
+    if (!title || !definition || !name || !surname || !email) {
       return res.status(400).json({ error: 'Faltan campos obligatorios' });
     }
 
     const registros = await cargarDatos();
+    const format = (date,locale,options) =>
+      new Intl.DateTimeFormat(locale,options).format(date);
+      const now = new Date();
+      // format(now, 'es')
+      // format(now, 'es', {dateStyle: 'long'})
+      // format(now, 'es', {weekday: 'short',day: 'numeric'})
+      // format(now, 'en', {weekday: 'short',day: 'numeric'})
+    // Crear el nuevo registro con un ID único y timestamp
     const nuevoRegistro = {
-      id: Date.now().toString(), // Generar un ID único
-      nombre,
+      id:  Date.now().toString(), // Generar un ID único
+      title,
+      definition,
+      name,
+      surname,
       email,
-      mensaje,
+      timestamp:format(now, 'es'), // Agregar el timestamp
     };
-    registros.push(nuevoRegistro);
 
+    registros.push(nuevoRegistro);
     await guardarDatos(registros);
-    res.status(201).json(nuevoRegistro);
+
+    res.status(201).json(nuevoRegistro); // Devolver el registro creado
   } catch (error) {
     res.status(500).json({ error: 'No se pudo guardar el registro' });
   }
@@ -81,7 +75,7 @@ app.post('/api/registros', async (req, res) => {
 app.get('/api/registros', async (req, res) => {
   try {
     const registros = await cargarDatos();
-    res.json(registros);
+    res.json(registros); // Devolver todos los registros
   } catch (error) {
     res.status(500).json({ error: 'No se pudieron obtener los registros' });
   }
@@ -93,12 +87,15 @@ app.delete('/api/registros/:id', async (req, res) => {
     const id = req.params.id;
     let registros = await cargarDatos();
 
-    const indice = registros.findIndex(registro => registro.id === id);
+    // Encontrar el índice del registro a eliminar
+    const indice = registros.findIndex((registro) => registro.id === id);
+
     if (indice === -1) {
       return res.status(404).json({ error: 'Registro no encontrado' });
     }
 
-    registros.splice(indice, 1); // Eliminar el registro
+    // Eliminar el registro
+    registros.splice(indice, 1);
     await guardarDatos(registros);
 
     res.status(200).json({ message: 'Registro eliminado' });
