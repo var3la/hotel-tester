@@ -1,8 +1,7 @@
 ((f, h) => {
   if (!f || !h) return false;
   const form = document.querySelector('form');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+
   const data = {
     title: document.getElementById('title'),
     definition: document.getElementById('definition'),
@@ -29,43 +28,39 @@
     console.log('Data saved:', data);
   }
 
-//   function insert(data) {
-//     const newIdea = document.createElement('div');
-//     newIdea.classList.add('sta-idea-ht');
 
-//     const ideaCont = document.createElement('div');
-//     ideaCont.classList.add('sta-ideain-ht');
+  // function insert(data) {
+  //   const newIdea = document.createElement('div');
+  //   newIdea.classList.add('sta-idea-ht');
 
-//     const ideaTitle = document.createElement('div');
-//     ideaTitle.classList.add('sta-ideatitle-ht');
-//     ideaTitle.innerHTML = data.title;
-//     ideaCont.appendChild(ideaTitle);
+  //   const ideaCont = document.createElement('div');
+  //   ideaCont.classList.add('sta-ideain-ht');
+  //   newIdea.appendChild(ideaCont);
 
-//     const ideaDescription = document.createElement('div');
-//     ideaDescription.classList.add('sta-ideatext-ht');
-//     ideaDescription.innerHTML = data.definition;
-//     ideaCont.appendChild(ideaDescription);
+  //   const ideaTitle = document.createElement('div');
+  //   ideaTitle.classList.add('sta-ideatitle-ht');
+  //   ideaTitle.innerHTML = data.title;
+  //   ideaCont.appendChild(ideaTitle);
 
-//     const ideaUserDate = document.createElement('div');
-//     ideaUserDate.classList.add('sta-userdate-ht');
-//     ideaUserDate.innerHTML = `${data.name} ${data.surname} - ${data.timestamp}`;
-//     newIdea.appendChild(ideaUserDate);
+  //   const ideaDescription = document.createElement('div');
+  //   ideaDescription.classList.add('sta-ideatext-ht');
+  //   ideaDescription.innerHTML = data.definition;
+  //   ideaCont.appendChild(ideaDescription);
 
-//     const container = document.querySelector('.sta-ideas-container-ht');
-//     container.appendChild(newIdea);
-//   };
+  //   const ideaUserDate = document.createElement('div');
+  //   ideaUserDate.classList.add('sta-userdate-th');
+  //   ideaUserDate.innerHTML = `${data.name} ${data.surname} - ${data.timestamp}`;
+  //   newIdea.appendChild(ideaUserDate);
+
+  //   const container = document.querySelector('.sta-ideas-container-ht');
+  //   container.appendChild(newIdea);
+  // };
 
 
 
   document.getElementById('formulario').addEventListener('submit', async (e) => {
     e.preventDefault();
-  
-    // Obtener datos del formulario
-    const nombre = document.getElementById('name').value;
-    const surname = document.getElementById('surname').value;
-    const mensaje = document.getElementById('definition').value;
-    const email = document.getElementById('email').value;
-    const title = document.getElementById('title').value;
+    mostrarRegistros();
 
     // Enviar datos al backend
     try {
@@ -145,21 +140,21 @@
   
   // Cargar los registros al iniciar la página
   mostrarRegistros();
-      if (validate()) {
-        const ideaData = {
-          title: data.title.value,
-          definition: data.definition.value,
-          name: data.name.value,
-          surname: data.surname.value,
-          email: data.email.value,
-          timestamp: new Date().toString(),
-        };
-        mostrarRegistros(ideaData);
-        save(ideaData);
-        form.reset();
-      }
-      return false;
-    });
+      // if (validate()) {
+      //   const ideaData = {
+      //     title: data.title.value,
+      //     definition: data.definition.value,
+      //     name: data.name.value,
+      //     surname: data.surname.value,
+      //     email: data.email.value,
+      //     timestamp: new Date().toString(),
+      //   };
+      //   mostrarRegistros(ideaData);
+      //   save(ideaData);
+      //   form.reset();
+      // }
+      // return false;
+
   
 
 

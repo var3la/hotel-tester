@@ -35,6 +35,7 @@
 
     const ideaCont = document.createElement('div');
     ideaCont.classList.add('sta-ideain-ht');
+    newIdea.appendChild(ideaCont);
 
     const ideaTitle = document.createElement('div');
     ideaTitle.classList.add('sta-ideatitle-ht');
@@ -47,7 +48,7 @@
     ideaCont.appendChild(ideaDescription);
 
     const ideaUserDate = document.createElement('div');
-    ideaUserDate.classList.add('sta-userdate-ht');
+    ideaUserDate.classList.add('sta-userdate-th');
     ideaUserDate.innerHTML = `${data.name} ${data.surname} - ${data.timestamp}`;
     newIdea.appendChild(ideaUserDate);
 
@@ -106,7 +107,7 @@
           name: data.name.value,
           surname: data.surname.value,
           email: data.email.value,
-          timestamp: new Date().toString(),
+          timestamp: format(now, 'es'),
         };
         insert(ideaData);
         save(ideaData);
@@ -114,7 +115,14 @@
       }
       return false;
     });
-  
+    const format = (date,locale,options) =>
+    new Intl.DateTimeFormat(locale,options).format(date);
+    const now = new Date();
+    // format(now, 'es')
+    // format(now, 'es', {dateStyle: 'long'})
+    // format(now, 'es', {weekday: 'short',day: 'numeric'})
+    // format(now, 'en', {weekday: 'short',day: 'numeric'})
+
 
 
 })(document.querySelector('.tpl-from-ht'), hotusa());
